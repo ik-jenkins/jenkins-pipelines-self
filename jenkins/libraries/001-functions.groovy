@@ -1,4 +1,5 @@
 // Environment name will be taken from the ROOT folder
+# def functions
 def env() {
   return env.JOB_NAME.tokenize('/').get(0).toLowerCase()
 }
