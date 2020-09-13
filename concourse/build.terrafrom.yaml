@@ -1,4 +1,4 @@
-https://github.com/ljfranklin/terraform-resource/blob/master/ci/pipeline.yml
+# https://github.com/ljfranklin/terraform-resource/blob/master/ci/pipeline.yml
 
 shared:
   - &failure-alert

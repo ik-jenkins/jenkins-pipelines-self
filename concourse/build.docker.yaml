@@ -1,4 +1,4 @@
-// https://github.com/sirech/example-concourse-pipeline/blob/master/pipeline.yml
+# https://github.com/sirech/example-concourse-pipeline/blob/master/pipeline.yml
 resources:
 - name: git
   type: git
