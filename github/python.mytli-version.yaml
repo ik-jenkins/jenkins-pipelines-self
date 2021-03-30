@@ -1,4 +1,10 @@
-# https://github.com/lincolnloop/ecs-task/blob/master/.github/workflows/test.yml
+---
+source:
+- https://github.com/lincolnloop/ecs-task/blob/master/.github/workflows/test.yml
+- https://github.com/aws/aws-cli/blob/develop/.github/workflows/run-tests.yml
+tags: ['github action', 'python', 'fail-fast']
+---
+
 name: Test
 
 on: [push]
@@ -9,6 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 5
+      fail-fast: false
       matrix:
         # todo: test 2.7 (can't use flit)
         # python-version: [2.7, 3.5, 3.6, 3.7, 3.8]
@@ -27,3 +34,7 @@ jobs:
     - name: Test with pytest
       run: |
         pytest -v --cov=ecs_task --cov-report=term tests.py
+    - name: Run tests
+      run: python scripts/ci/run-tests
+    - name: Run checks
+      run: python scripts/ci/run-check
