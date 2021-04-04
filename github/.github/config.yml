@@ -5,3 +5,5 @@ todo:
   blobLines: 5
   label: true
   reopenClosed: true
+
+blank_issues_enabled: false

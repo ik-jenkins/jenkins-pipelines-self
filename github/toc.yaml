@@ -1,3 +1,10 @@
+---
+source:
+- https://github.com/technote-space/toc-generator#condition2
+- https://github.com/ivankatliarchuk/.github
+tags: ['github action', 'toc']
+---
+
 on:
   push:
     branches:
@@ -9,7 +16,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: TOC Generator
-        uses: technote-space/toc-generator@v1
+        uses: technote-space/toc-generator@v4
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TARGET_PATHS: "README.md"
+          INCLUDE_LABELS: documentation
+          CREATE_PR: true
+          CHECK_ONLY_DEFAULT_BRANCH: true

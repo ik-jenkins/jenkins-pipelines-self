@@ -1,4 +1,8 @@
-# https://github.com/sindresorhus/refined-github/blob/main/.github/workflows/test.yml
+---
+source: https://github.com/sindresorhus/refined-github/blob/main/.github/workflows/test.yml
+tags: ['github action', 'multi', 'jobs']
+---
+
 name: Test
 
 on:

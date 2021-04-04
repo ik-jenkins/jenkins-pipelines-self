@@ -1,6 +1,6 @@
 ---
 source: https://github.com/ExRam/ExRam.Gremlinq/blob/main/.github/workflows/build.yml
-tags: ['github action', 'c#', 'dotnet', 'tweet', 'ubuntu', 'pull request']
+tags: ['github action', 'c#', 'dotnet', 'tweet', 'ubuntu', 'pull request', 'jobs', 'multi']
 ---
 
 name: Build + Test

@@ -1,3 +1,7 @@
+---
+source:
+tags: ['github action', 'cron', 'readme']
+---
 # cloudposse github
 name: 'auto-readme'
 
@@ -8,7 +12,7 @@ on:
       - master
 
   # Open a PR to update README for all PRs (as necessary)
-  pull_request: 
+  pull_request:
     types: [opened, synchronize, reopened]
 
   # Update README nightly
@@ -31,14 +35,14 @@ jobs:
           make readme
       - name: Create Pull Request
         uses: cloudposse/actions/github/create-pull-request@0.4.0
-        with: 
+        with:
           labels: automated pr
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_BOT_TOKEN }}
           COMMIT_MESSAGE: Update README.md
           PULL_REQUEST_TITLE: Automatic Update of README.md
           PULL_REQUEST_BODY: |-
-            This is an auto-generated PR which updates the `README.md` from the `README.yaml` 
+            This is an auto-generated PR which updates the `README.md` from the `README.yaml`
             using the [`cloudposse/build-harness`](https://github.com/cloudposse/build-harness).
           PULL_REQUEST_BRANCH: github-actions/auto-readme
           BRANCH_SUFFIX: none
