@@ -1,5 +1,7 @@
 ---
-source: https://github.com/sindresorhus/refined-github/blob/main/.github/workflows/labeler.yml
+source:
+- https://github.com/sindresorhus/refined-github/blob/main/.github/workflows/labeler.yml
+- https://github.com/fregante/title-to-labels-action
 tags: ['github action', 'issues', 'labeller']
 ---
 

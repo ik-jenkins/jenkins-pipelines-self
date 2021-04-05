@@ -1,0 +1,32 @@
+---
+source:
+- hhttps://github.com/EndBug/add-and-commit
+- https://github.com/actions/upload-release-asset
+tags: ['github action', 'commit files', 'git-commit']
+---
+
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
+
+      - run: npm ci
+      - run: npm run build
+      - run: npm run format
+      - run: npm run lint
+      - run: npm run pack
+      - run: npm run test:coverage
+
+      - uses: EndBug/add-and-commit@b3c7c1e078a023d75fb0bd326e02962575ce0519
+        with:
+          message: 'Diff from format, lint and pack'
