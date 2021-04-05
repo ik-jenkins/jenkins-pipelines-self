@@ -2,7 +2,7 @@
 source:
 - https://github.com/DeFiCh/ain/blob/master/.github/workflows/release-builds.yaml
 - https://github.com/actions/upload-release-asset
-tags: ['github action', 'release build', 'sha']
+tags: ['github action', 'release build', 'sha', 'checksum']
 ---
 
 name: Release Build
