@@ -1,4 +1,4 @@
- Publish to crates.io and upload release binaries to GitHub.
+# Publish to crates.io and upload release binaries to GitHub.
 #
 # This workflow contains three jobs. The first job `prepare` does two things
 #   - Check that the tag is the same as the package version.

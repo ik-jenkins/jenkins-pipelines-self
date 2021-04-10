@@ -1,7 +1,7 @@
 # source:
 # - https://github.com/search?o=desc&q=actions%2Fgithub-script+path%3A.github%2Fworkflows+language%3AYAML&s=&type=Code
 # - https://github.com/ikatyang/emoji-cheat-sheet/blob/master/.github/workflows/update.yml
-# tags: ['github action', 'github script', 'script', 'github-script']
+# tags: ['github action', 'github script', 'github-script', 'create pull']
 
 name: Up to Date
 
