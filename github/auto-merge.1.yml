@@ -1,6 +1,6 @@
 ---
 source: https://github.com/aws-samples/serverless-webapp-mono-repo-ci-cd-java/blob/master/.github/workflows/build-backend-infra.yml
-tags: ['github action', 'merge', 'build', 'automerge', 'dependabot']
+tags: ['github action', 'merge', 'build', 'automerge', 'dependabot, 'github-script']
 ---
 
 name: Build Backend Infra
