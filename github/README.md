@@ -9,6 +9,8 @@
 
 - [blackducksoftware][blackducksoftware]
 - [kubesec][kubesec]
+- [owasp: zaproxy base][owasp-zaproxy-base]
+- [owasp: zaproxy full][owasp-zaproxy-full]
 
 ## Emojies
 
@@ -17,3 +19,5 @@
 <!-- resources -->
 [blackducksoftware]: https://github.com/search?o=desc&q=blackducksoftware%2Fgithub-action+path%3A.github%2Fworkflows+language%3AYAML&s=&type=Code
 [kubesec]: https://github.com/search?o=desc&q=controlplaneio%2Fkubesec-action+path%3A.github%2Fworkflows+language%3AYAML&s=&type=Code
+[owasp-zaproxy-base]: https://github.com/search?o=zaproxy&q=zaproxy%2Faction-baseline+path%3A.github%2Fworkflows+language%3AYAML&s=&type=Code
+[owasp-zaproxy-full]: 

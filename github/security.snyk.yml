@@ -1,7 +1,7 @@
 # source:
 # - https://github.com/search?o=desc&q=snyk%2Factions/node+path%3A.github%2Fworkflows+language%3AYAML&s=&type=Code
 # - https://github.com/fabasoad/yaml-json-xml-converter-action/blob/main/.github/workflows/security-tests.yml
-# tags: ['github action', 'snyk', 'security', 'rust']
+# tags: ['github action', 'snyk', 'security', 'rust', audit]
 
 ---
 name: Security Tests
