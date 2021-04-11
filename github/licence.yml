@@ -1,6 +1,6 @@
 ---
 source: https://github.com/testomat/terminal-colour/blob/master/.github/workflows/license-update.yml
-tags: ['github action', 'licence', 'licence update']
+tags: ['github action', 'licence', 'licence update', cache]
 ---
 
 # https://help.github.com/en/categories/automating-your-workflow-with-github-actions
@@ -111,4 +111,3 @@ jobs:
           title: "Enhancement: Update license year"
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-          

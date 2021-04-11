@@ -1,7 +1,10 @@
----
-source: https://github.com/hugo-toha/hugo-toha.github.io/blob/source/.github/workflows/lighthouse-check.yml
-tags: ['github action', 'lighthouse']
----
+# source:
+# - https://github.com/search?o=desc&q=blackducksoftware%2Fgithub-action+path%3A.github%2Fworkflows+language%3AYAML&s=&type=Code
+# - https://github.com/search?o=desc&q=lighthouse-check-action+path%3A.github%2Fworkflows+language%3AYAML&s=&type=Code
+# - https://github.com/foo-software/lighthouse-check-action
+# - https://github.com/hugo-toha/hugo-toha.github.io/blob/source/.github/workflows/lighthouse-check.yml
+# tags: ['github action', 'lighthouse', scan]
+
 
 name: Lighthouse
 on: [pull_request]
@@ -38,3 +41,12 @@ jobs:
         minPerformanceScore: "60"
         minProgressiveWebAppScore: "50"
         minSeoScore: "90"
+
+    - name: Create Issue From File
+      uses: peter-evans/create-issue-from-file@v2
+      with:
+        title: A lighthouse issue
+        content-filepath: ./example-content/output.md
+        labels: report, automated issue
+
+
