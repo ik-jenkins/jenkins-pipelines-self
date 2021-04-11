@@ -1,0 +1,41 @@
+# source:
+# - https://github.com/search?o=desc&q=renovatebot%2Fgithub-action+path%3A.github%2Fworkflows+language%3AYAML&s=&type=Code
+# - https://github.com/ivankatliarchuk/.github
+# tags: ['github action', 'renovate']
+
+name: renovate
+
+on:
+  workflow_dispatch:
+    branches:
+      - $default-branch
+  schedule:
+    - cron: '0 6 * * *'
+  pull_request_target:
+    branches:
+      - $default-branch
+    types:
+      - closed
+
+env:
+  RENOVATE_CONFIG_FOLDER: .github/renovate
+  LOG_LEVEL: info
+
+jobs:
+  renovate:
+    runs-on: ubuntu-latest
+    if: github.repository == 'org-name/repo-name'
+    steps:
+      - uses: actions/checkout@v2.3.4
+        with:
+          fetch-depth: '1'
+      # https://github.com/renovatebot/github-action install renovate app
+      - name: run renovate across repositories
+        uses: renovatebot/github-action@v23.100.5
+        with:
+          configurationFile: ${{ env.RENOVATE_CONFIG_FOLDER }}/renovate-config.js
+          token: ${{ secrets.RENOVATE_TOKEN }}
+        env:
+          USER_NAME: ${{ github.repository_owner }}
+          RENOVATE_CONFIG_FOLDER: ${{ env.RENOVATE_CONFIG_FOLDER }}
+          LOG_LEVEL: debug
