@@ -11,10 +11,15 @@
 - [kubesec][kubesec]
 - [owasp: zaproxy base][owasp-zaproxy-base]
 - [owasp: zaproxy full][owasp-zaproxy-full]
+- [Anchore Scanning][https://github.com/search?o=desc&q=anchore%2Fscan-action+path%3A.github%2Fworkflows+language%3AYAML&s=&type=Code]
 
 ## Performance
 
-- [Benchmark][benchmark]:
+- [Benchmark][benchmark]
+
+## Releasing
+
+- [Semantic Release][semantic-release.v4]
 
 ## Emojies
 
@@ -26,3 +31,4 @@
 [owasp-zaproxy-base]: https://github.com/search?o=zaproxy&q=zaproxy%2Faction-baseline+path%3A.github%2Fworkflows+language%3AYAML&s=&type=Code
 [owasp-zaproxy-full]:
 [benchmark]: https://github.com/search?o=desc&q=rhysd%2Fgithub-action-benchmark+path%3A.github%2Fworkflows+language%3AYAML&s=&type=Code
+[semantic-release.v4]: https://github.com/search?o=desc&q=cycjimmy%2Fsemantic-release-action+path%3A.github%2Fworkflows+language%3AYAML&s=&type=Code
