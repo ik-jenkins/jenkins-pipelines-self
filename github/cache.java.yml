@@ -21,9 +21,9 @@ env:
 
 on:
   push:
-    branches: [ 6.2.x ]
+    branches: [6.2.x]
   pull_request:
-    branches: [ 6.2.x ]
+    branches: [6.2.x]
 
 ##########################################################################
 
@@ -39,7 +39,7 @@ jobs:
       - name: Initialize
         run: ls ./ci && chmod -R 777 ./ci/*.sh && ./ci/init-build.sh
 
-##########################################################################
+  ##########################################################################
   cache:
     runs-on: ubuntu-latest
     needs: [initialize]
@@ -54,13 +54,13 @@ jobs:
       - uses: actions/checkout@v2
       - name: Download Dependencies
         run: ./gradlew --build-cache --configure-on-demand --no-daemon downloadDependencies --parallel --refresh-dependencies
-      - uses: actions/cache@v1
+      - uses: actions/cache@v2
         with:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
-##########################################################################
+  ##########################################################################
 
   build:
     needs: [cache]
@@ -71,15 +71,15 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
-#      - name: Setup tmate session
-#        uses: mxschmitt/action-tmate@v2
+      #      - name: Setup tmate session
+      #        uses: mxschmitt/action-tmate@v2
       - name: Set up JDK
         uses: actions/setup-java@v1
         with:
           java-version: ${{ env.JDK_CURRENT }}
       - name: Initialize
         run: chmod -R 777 ./ci/*.sh && ./ci/init-build.sh
-      - uses: actions/cache@v1
+      - uses: actions/cache@v2
         with:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
@@ -93,7 +93,7 @@ jobs:
           name: binary-artifacts
           path: ./**/build/libs/*.*
 
-##########################################################################
+  ##########################################################################
 
   build-latest:
     runs-on: ubuntu-latest
@@ -106,7 +106,7 @@ jobs:
           java-version: ${{ env.JDK_LATEST }}
       - name: Initialize
         run: chmod -R 777 ./ci/*.sh && ./ci/init-build.sh
-      - uses: actions/cache@v1
+      - uses: actions/cache@v2
         with:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
@@ -115,7 +115,7 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew --build-cache --configure-on-demand --no-daemon build -x test -x javadoc -x check -DskipNestedConfigMetadataGen=true --parallel
 
-##########################################################################
+  ##########################################################################
 
   validate-docs:
     runs-on: ubuntu-latest
@@ -124,7 +124,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Initialize
         run: chmod -R 777 ./ci/*.sh && ./ci/init-build.sh
-      - uses: actions/cache@v1
+      - uses: actions/cache@v2
         with:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
@@ -134,7 +134,7 @@ jobs:
         if: ${{ !contains(github.head_ref, 'renovate') && github.event_name == 'push' }}
         run: ./ci/validate-documentation.sh
 
-##########################################################################
+  ##########################################################################
 
   static-analysis:
     runs-on: ubuntu-latest
@@ -148,15 +148,15 @@ jobs:
           - checkstyleTest
     steps:
       - uses: actions/checkout@v2
-#      - name: Setup tmate session
-#        uses: mxschmitt/action-tmate@v2
+      #      - name: Setup tmate session
+      #        uses: mxschmitt/action-tmate@v2
       - name: Set up JDK
         uses: actions/setup-java@v1
         with:
           java-version: ${{ env.JDK_CURRENT }}
       - name: Initialize
         run: chmod -R 777 ./ci/*.sh && ./ci/init-build.sh
-      - uses: actions/cache@v1
+      - uses: actions/cache@v2
         with:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
@@ -169,7 +169,7 @@ jobs:
         if: ${{ !contains(github.head_ref, 'renovate') }}
         run: ./gradlew --build-cache --configure-on-demand --parallel --no-daemon ${{ matrix.category }} -x test -x javadoc -DskipNestedConfigMetadataGen=true -DshowStandardStreams=true
 
-##########################################################################
+  ##########################################################################
 
   validate-codebase:
     runs-on: ubuntu-latest
@@ -182,7 +182,7 @@ jobs:
           java-version: ${{ env.JDK_CURRENT }}
       - name: Initialize
         run: chmod -R 777 ./ci/*.sh && ./ci/init-build.sh
-      - uses: actions/cache@v1
+      - uses: actions/cache@v2
         with:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
@@ -192,7 +192,7 @@ jobs:
         if: ${{ !contains(github.head_ref, 'renovate') }}
         run: ./ci/analyze-codebase.sh
 
-##########################################################################
+  ##########################################################################
 
   validate-javadocs:
     runs-on: ubuntu-latest
@@ -205,7 +205,7 @@ jobs:
           java-version: ${{ env.JDK_CURRENT }}
       - name: Initialize
         run: chmod -R 777 ./ci/*.sh && ./ci/init-build.sh
-      - uses: actions/cache@v1
+      - uses: actions/cache@v2
         with:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
@@ -218,7 +218,7 @@ jobs:
         if: ${{ !contains(github.head_ref, 'renovate') }}
         run: ./gradlew --build-cache --configure-on-demand --no-daemon --parallel javadoc -x test -x check -DskipNestedConfigMetadataGen=true --parallel
 
-##########################################################################
+  ##########################################################################
 
   validate-spring-config-metadata:
     runs-on: ubuntu-latest
@@ -231,7 +231,7 @@ jobs:
           java-version: ${{ env.JDK_CURRENT }}
       - name: Initialize
         run: chmod -R 777 ./ci/*.sh && ./ci/init-build.sh
-      - uses: actions/cache@v1
+      - uses: actions/cache@v2
         with:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
@@ -241,7 +241,7 @@ jobs:
         if: ${{ !contains(github.head_ref, 'renovate') }}
         run: ./gradlew --build-cache --configure-on-demand --no-daemon --parallel :api:cas-server-core-api-configuration-model:build -x check -x test -x javadoc
 
-##########################################################################
+  ##########################################################################
 
   validate-spring-config-proxies:
     runs-on: ubuntu-latest
@@ -254,7 +254,7 @@ jobs:
           java-version: ${{ env.JDK_CURRENT }}
       - name: Initialize
         run: chmod -R 777 ./ci/*.sh && ./ci/init-build.sh
-      - uses: actions/cache@v1
+      - uses: actions/cache@v2
         with:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
@@ -264,7 +264,7 @@ jobs:
         if: ${{ !contains(github.head_ref, 'renovate') }}
         run: ./gradlew --build-cache --configure-on-demand --no-daemon --parallel verifySpringConfigurationCanDisableBeanProxying -x javadoc -x check --parallel -DskipNestedConfigMetadataGen=true
 
-##########################################################################
+  ##########################################################################
 
   validate-spring-config-factories:
     runs-on: ubuntu-latest
@@ -277,7 +277,7 @@ jobs:
           java-version: ${{ env.JDK_CURRENT }}
       - name: Initialize
         run: chmod -R 777 ./ci/*.sh && ./ci/init-build.sh
-      - uses: actions/cache@v1
+      - uses: actions/cache@v2
         with:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
@@ -287,7 +287,7 @@ jobs:
         if: ${{ !contains(github.head_ref, 'renovate') }}
         run: ./gradlew --build-cache --configure-on-demand --no-daemon --parallel verifySpringConfigurationFactories -x javadoc -x check --parallel -DskipNestedConfigMetadataGen=true
 
-##########################################################################
+  ##########################################################################
 
   validate-commandline-shell:
     runs-on: ubuntu-latest
@@ -300,7 +300,7 @@ jobs:
           java-version: ${{ env.JDK_CURRENT }}
       - name: Initialize
         run: chmod -R 777 ./ci/*.sh && ./ci/init-build.sh
-      - uses: actions/cache@v1
+      - uses: actions/cache@v2
         with:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
@@ -314,7 +314,7 @@ jobs:
         run: |
           casVersion=$(./gradlew casVersion --no-daemon -q)
           java -jar support/cas-server-support-shell/build/libs/cas-server-support-shell-${casVersion}.jar @ci/tests/shell/cas-shell-script.sh
-##########################################################################
+  ##########################################################################
 
   validate-webapp-embedded:
     runs-on: ubuntu-latest
@@ -333,7 +333,7 @@ jobs:
           java-version: ${{ env.JDK_CURRENT }}
       - name: Initialize
         run: chmod -R 777 ./ci/*.sh && ./ci/init-build.sh
-      - uses: actions/cache@v1
+      - uses: actions/cache@v2
         with:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
@@ -346,7 +346,7 @@ jobs:
         if: ${{ !contains(github.head_ref, 'renovate') }}
         run: ./ci/tests/webapp/validate-embedded-webapp.sh ${{ matrix.category }}
 
-##########################################################################
+  ##########################################################################
 
   validate-webapp-external-tomcat:
     runs-on: ubuntu-latest
@@ -359,7 +359,7 @@ jobs:
           java-version: ${{ env.JDK_CURRENT }}
       - name: Initialize
         run: chmod -R 777 ./ci/*.sh && ./ci/init-build.sh
-      - uses: actions/cache@v1
+      - uses: actions/cache@v2
         with:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
@@ -372,7 +372,7 @@ jobs:
         if: ${{ !contains(github.head_ref, 'renovate') }}
         run: ./ci/tests/webapp/validate-external-webapp.sh tomcat
 
-##########################################################################
+  ##########################################################################
 
   validate-spring-cloud-config-server:
     runs-on: ubuntu-latest
@@ -385,7 +385,7 @@ jobs:
           java-version: ${{ env.JDK_CURRENT }}
       - name: Initialize
         run: chmod -R 777 ./ci/*.sh && ./ci/init-build.sh
-      - uses: actions/cache@v1
+      - uses: actions/cache@v2
         with:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
@@ -398,7 +398,7 @@ jobs:
         if: ${{ !contains(github.head_ref, 'renovate') }}
         run: ./ci/tests/webapp/validate-configserver-webapp.sh
 
-##########################################################################
+  ##########################################################################
 
   validate-eureka-discovery-server:
     runs-on: ubuntu-latest
@@ -411,7 +411,7 @@ jobs:
           java-version: ${{ env.JDK_CURRENT }}
       - name: Initialize
         run: chmod -R 777 ./ci/*.sh && ./ci/init-build.sh
-      - uses: actions/cache@v1
+      - uses: actions/cache@v2
         with:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
@@ -424,7 +424,7 @@ jobs:
         if: ${{ !contains(github.head_ref, 'renovate') }}
         run: ./ci/tests/webapp/validate-eurekaserver-webapp.sh
 
-##########################################################################
+  ##########################################################################
 
   validate-spring-boot-admin-server:
     runs-on: ubuntu-latest
@@ -437,7 +437,7 @@ jobs:
           java-version: ${{ env.JDK_CURRENT }}
       - name: Initialize
         run: chmod -R 777 ./ci/*.sh && ./ci/init-build.sh
-      - uses: actions/cache@v1
+      - uses: actions/cache@v2
         with:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
@@ -450,22 +450,22 @@ jobs:
         if: ${{ !contains(github.head_ref, 'renovate') }}
         run: ./ci/tests/webapp/validate-bootadmin-webapp.sh
 
-##########################################################################
+  ##########################################################################
 
   validate-tests:
     runs-on: ubuntu-latest
     needs: [cache]
     steps:
       - uses: actions/checkout@v2
-#      - name: Setup tmate session
-#        uses: mxschmitt/action-tmate@v2
+      #      - name: Setup tmate session
+      #        uses: mxschmitt/action-tmate@v2
       - name: Set up JDK
         uses: actions/setup-java@v1
         with:
           java-version: ${{ env.JDK_CURRENT }}
       - name: Initialize
         run: chmod -R 777 ./ci/*.sh && ./ci/init-build.sh
-      - uses: actions/cache@v1
+      - uses: actions/cache@v2
         with:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
@@ -475,7 +475,7 @@ jobs:
         if: ${{ !contains(github.head_ref, 'renovate') }}
         run: ./gradlew --build-cache --configure-on-demand --no-daemon --parallel validateTestsSuites -x javadoc
 
-##########################################################################
+  ##########################################################################
 
   validate-dependency-licenses:
     runs-on: ubuntu-latest
@@ -488,7 +488,7 @@ jobs:
           java-version: ${{ env.JDK_CURRENT }}
       - name: Initialize
         run: chmod -R 777 ./ci/*.sh && ./ci/init-build.sh
-      - uses: actions/cache@v1
+      - uses: actions/cache@v2
         with:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
@@ -498,7 +498,7 @@ jobs:
         if: ${{ !contains(github.head_ref, 'renovate') }}
         run: ./gradlew --build-cache --configure-on-demand --no-daemon --parallel checkLicense -x javadoc -x check -DskipNestedConfigMetadataGen=true
 
-##########################################################################
+  ##########################################################################
 
   publish-snapshots:
     runs-on: ubuntu-latest
@@ -511,7 +511,7 @@ jobs:
           java-version: ${{ env.JDK_CURRENT }}
       - name: Initialize
         run: chmod -R 777 ./ci/*.sh && ./ci/init-build.sh
-      - uses: actions/cache@v1
+      - uses: actions/cache@v2
         with:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
@@ -524,7 +524,7 @@ jobs:
         if: ${{ !contains(github.event.head_commit.message, 'skip snapshots') && github.event_name == 'push' }}
         run: ./gradlew --build-cache --configure-on-demand --no-daemon --parallel -Dorg.gradle.internal.http.socketTimeout=180000 -Dorg.gradle.internal.http.connectionTimeout=180000 build publish -x test -x javadoc -x check -DpublishSnapshots=true -DsonatypeUsername="${SONATYPE_USER}" -DsonatypePassword="${SONATYPE_PWD}"
 
-##########################################################################
+  ##########################################################################
 
   publish-docs:
     runs-on: ubuntu-latest
@@ -536,7 +536,7 @@ jobs:
           java-version: ${{ env.JDK_CURRENT }}
       - name: Initialize
         run: chmod -R 777 ./ci/*.sh && ./ci/init-build.sh
-      - uses: actions/cache@v1
+      - uses: actions/cache@v2
         with:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
@@ -546,7 +546,7 @@ jobs:
         if: ${{ github.event_name == 'push' }}
         run: ./ci/push-docs-ghpages.sh
 
-##########################################################################
+  ##########################################################################
 
   tests:
     runs-on: ubuntu-latest
@@ -600,7 +600,7 @@ jobs:
           java-version: ${{ env.JDK_CURRENT }}
       - name: Initialize
         run: chmod -R 777 ./ci/*.sh && ./ci/init-build.sh
-      - uses: actions/cache@v1
+      - uses: actions/cache@v2
         with:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
@@ -612,7 +612,7 @@ jobs:
       - name: Run Tests
         run: ./testcas.sh --coverage-report --coverage-upload --category ${{ matrix.category }}
 
-##########################################################################
+  ##########################################################################
 
   tests-performance-locust:
     runs-on: ubuntu-latest
@@ -634,7 +634,7 @@ jobs:
           python-version: ${{ env.PYTHON_VERSION }}
       - name: Initialize
         run: chmod -R 777 ./ci/*.sh && ./ci/init-build.sh
-      - uses: actions/cache@v1
+      - uses: actions/cache@v2
         with:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
@@ -646,7 +646,7 @@ jobs:
       - name: Locust Performance Tests via Embedded Apache Tomcat
         run: ./ci/tests/perftests-locust.sh ${{ matrix.category }}
 
-##########################################################################
+  ##########################################################################
 
   # report-dependency-updates:
   #   runs-on: ubuntu-latest
@@ -659,7 +659,7 @@ jobs:
   #         java-version: ${{ env.JDK_CURRENT }}
   #     - name: Initialize
   #       run: chmod -R 777 ./ci/*.sh && ./ci/init-build.sh
-  #     - uses: actions/cache@v1
+  #     - uses: actions/cache@v2
   #       with:
   #         path: ~/.gradle/caches
   #         key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
@@ -669,32 +669,32 @@ jobs:
   #       if: ${{ !contains(github.head_ref, 'renovate') && github.event_name == 'push' }}
   #       run: ./gradlew --build-cache --configure-on-demand --no-daemon --parallel -x test -x javadoc dependencyUpdates -Drevision=release -DskipNestedConfigMetadataGen=true -DgradleReleaseChannel=current
 
-##########################################################################
+  ##########################################################################
 
-#  renovate-dependency-updates:
-#    runs-on: ubuntu-latest
-#    needs: [cache]
-#    steps:
-#      - uses: actions/checkout@v2
-#      - name: Set up JDK
-#        uses: actions/setup-java@v1
-#        with:
-#          java-version: ${{ env.JDK_CURRENT }}
-#      - name: Initialize
-#        run: chmod -R 777 ./ci/*.sh && ./ci/init-build.sh
-#      - uses: actions/cache@v1
-#        with:
-#          path: ~/.gradle/caches
-#          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
-#          restore-keys: |
-#            ${{ runner.os }}-gradle-
-#      - uses: renovatebot/github-action@v1.0.0
-#        if: ${{ !contains(github.head_ref, 'renovate') && github.event_name == 'push' }}
-#        with:
-#          token: ${{ secrets.RENOVATE_TOKEN }}
-#          configurationFile: .github/renovate.js
+  #  renovate-dependency-updates:
+  #    runs-on: ubuntu-latest
+  #    needs: [cache]
+  #    steps:
+  #      - uses: actions/checkout@v2
+  #      - name: Set up JDK
+  #        uses: actions/setup-java@v1
+  #        with:
+  #          java-version: ${{ env.JDK_CURRENT }}
+  #      - name: Initialize
+  #        run: chmod -R 777 ./ci/*.sh && ./ci/init-build.sh
+  #      - uses: actions/cache@v2
+  #        with:
+  #          path: ~/.gradle/caches
+  #          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+  #          restore-keys: |
+  #            ${{ runner.os }}-gradle-
+  #      - uses: renovatebot/github-action@v1.0.0
+  #        if: ${{ !contains(github.head_ref, 'renovate') && github.event_name == 'push' }}
+  #        with:
+  #          token: ${{ secrets.RENOVATE_TOKEN }}
+  #          configurationFile: .github/renovate.js
 
-##########################################################################
+  ##########################################################################
 
   validate-quality:
     runs-on: ubuntu-latest
@@ -707,7 +707,7 @@ jobs:
           java-version: ${{ env.JDK_CURRENT }}
       - name: Initialize
         run: chmod -R 777 ./ci/*.sh && ./ci/init-build.sh
-      - uses: actions/cache@v1
+      - uses: actions/cache@v2
         with:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
@@ -719,5 +719,4 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONARCLOUD_TOKEN }}
         if: ${{ !contains(github.head_ref, 'renovate') && github.event_name == 'push' }}
         run: ./gradlew --build-cache --configure-on-demand --no-daemon --parallel sonarqube -x javadoc -Dsonar.organization=apereo -Dsonar.host.url=https://sonarcloud.io -Dsonar.login="${SONARCLOUD_TOKEN}" -DskipNestedConfigMetadataGen=true --parallel -DshowStandardStreams=true --info
-
 ##########################################################################
