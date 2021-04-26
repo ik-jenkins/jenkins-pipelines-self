@@ -1,7 +1,7 @@
----
-source: https://github.com/release-drafter/release-drafter/blob/master/.github/workflows/tests.yml
-tags: ['github action', 'yarn', 'node']
----
+# source:
+# - https://github.com/search?o=desc&q=release-drafter+path%3A.github%2Fworkflows+language%3AYAML&s=&type=Code
+# - https://github.com/release-drafter/release-drafter/blob/master/.github/workflows/tests.yml
+# tags: ['github action', 'release-drafter', 'yarn', 'node']
 
 name: Tests
 
@@ -27,4 +27,3 @@ jobs:
       - name: correct vercel/ncc crlf output
         run: sed -i 's/\x0D$//' ./dist/index.js
       - run: .github/no-unstaged-files.sh
-      
