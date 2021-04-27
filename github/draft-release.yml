@@ -71,4 +71,3 @@ jobs:
           body: ${{ toJSON(steps.changelog.outputs.body) }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
