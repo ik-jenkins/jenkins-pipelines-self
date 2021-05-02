@@ -39,3 +39,15 @@ jobs:
           USER_NAME: ${{ github.repository_owner }}
           RENOVATE_CONFIG_FOLDER: ${{ env.RENOVATE_CONFIG_FOLDER }}
           LOG_LEVEL: debug
+
+  auto-approve-dependency-updates:
+    name: Approve dependabot PRs
+    runs-on: ubuntu-latest
+    needs: auto-merge-dependency-updates
+    # Specifically check the creator of the pull-request, not the actor.
+    if: github.event.pull_request.user.login == 'dependabot[bot]' && contains(github.event.pull_request.labels.*.name, 'dependencies') || renovate[bot]
+    steps:
+    - id: auto-approve-dependabot
+      uses: hmarr/auto-approve-action@bca9db08da72b576ae3273e776e7ccf3f0a36e12
+      with:
+        github-token: "${{ secrets.GITHUB_TOKEN }}"
