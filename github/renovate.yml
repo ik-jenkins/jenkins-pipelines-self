@@ -1,6 +1,7 @@
 # source:
 # - https://github.com/search?o=desc&q=renovatebot%2Fgithub-action+path%3A.github%2Fworkflows+language%3AYAML&s=&type=Code
 # - https://github.com/ivankatliarchuk/.github
+# - https://github.com/alexwilson/enable-github-automerge-action
 # tags: ['github action', 'renovate']
 
 name: renovate
